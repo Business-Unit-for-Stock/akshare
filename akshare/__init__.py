@@ -3225,10 +3225,46 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.18.17 fix: fix stock_individual_spot_xq interface
 1.18.18 fix: fix stock_individual_spot_xq interface
 1.18.19 fix: fix github action
+1.18.20 fix: fix stock_individual_spot_xq interface
+1.18.21 fix: fix get_receipt interface
+1.18.22 fix: fix bond_gb_zh_sina interface
+1.18.23 fix: fix fund_fee_em interface
+1.18.24 fix: fix stock_individual_spot_xq interface
+1.18.25 fix: fix qdii_e_comm_jsl interface
+1.18.26 fix: fix fund_fh_em interface
+1.18.27 fix: fix futures_comm_js interface
+1.18.28 fix: fix futures_spot_price_daily interface
+1.18.29 fix: fix stock_individual_basic_info_xq interface
+1.18.30 fix: fix futures_inventory_99 interface
+1.18.31 fix: fix stock_hk_dividend_payout_em interface
+1.18.32 fix: fix fund_new_found_ths interface
+1.18.33 fix: fix futures_spot_price_daily interface
+1.18.34 fix: fix fund_fh_em interface
+1.18.35 fix: fix stock_ipo_ths interface
+1.18.36 fix: fix stock_zygc_em interface
+1.18.37 fix: fix fund_etf_dividend_sina interface
+1.18.38 fix: fix stock_hk_index_daily_sina interface
 """
 
 from akshare._version import __version__
 __author__ = "AKFamily"
+
+"""
+期货结算
+"""
+from akshare.futures.futures_settle import (
+    futures_settle,
+    futures_settle_gfex,
+    futures_settle_ine,
+    futures_settle_czce,
+    futures_settle_cffex,
+    futures_settle_shfe,
+)
+
+"""
+国债收益率
+"""
+from akshare.bond.bond_gb_sina import bond_gb_zh_sina, bond_gb_us_sina
 
 """
 openctp-合约信息接口
@@ -3256,7 +3292,7 @@ from akshare.option.option_current_szse import option_current_day_szse
 from akshare.stock_fundamental.stock_finance_sina import stock_financial_analysis_indicator_em
 
 """
-期权保证金 
+期权保证金
 """
 from akshare.option.option_margin import option_margin, option_margin_symbol
 
@@ -3417,7 +3453,7 @@ from akshare.option.option_daily_stats_sse_szse import option_daily_stats_sse, o
 """
 同花顺理财-基金数据-每日净值-ETF
 """
-from akshare.fund.fund_etf_ths import fund_etf_spot_ths
+from akshare.fund.fund_etf_ths import fund_etf_spot_ths, fund_etf_category_ths
 
 """
 东方财富网-数据中心-融资融券-融资融券账户统计-两融账户信息
@@ -3470,6 +3506,11 @@ from akshare.futures_derivative.futures_contract_info_ine import futures_contrac
 上海期货交易所-指定交割仓库-库存周报
 """
 from akshare.futures.futures_stock_js import futures_stock_shfe_js
+
+"""
+金十数据-期货手续费
+"""
+from akshare.futures.futures_comm_js import futures_comm_js
 
 """
 东方财富-数据中心-沪深港通-市场概括-分时数据
@@ -4533,6 +4574,7 @@ from akshare.index.index_kq_ss import index_kq_fashion
 新发基金
 """
 from akshare.fund.fund_init_em import fund_new_found_em
+from akshare.fund.fund_init_ths import fund_new_found_ths
 
 """
 高管持股
@@ -4828,6 +4870,14 @@ from akshare.stock_fundamental.stock_register_em import (
 东方财富-过会企业信息
 """
 from akshare.stock_fundamental.stock_ipo_review import stock_ipo_review_em
+
+"""
+同花顺-新股申购与中签
+"""
+from akshare.stock_fundamental.stock_ipo_ths import (
+    stock_ipo_ths,
+    stock_ipo_hk_ths,
+)
 
 """
 新浪财经-龙虎榜
