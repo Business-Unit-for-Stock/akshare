@@ -12,9 +12,9 @@ on:
         required: false
         type: string
       providers:
-        description: "数据源，逗号分隔：akshare,yfinance"
+        description: "数据源，逗号分隔：akshare,baostock,yfinance"
         required: false
-        default: "akshare,yfinance"
+        default: "akshare,baostock,yfinance"
         type: string
       adjust:
         description: "复权方式：none、qfq 或 hfq"
@@ -32,6 +32,5 @@ jobs:
     with:
       start_date: ${{ inputs.start_date }}
       end_date: ${{ inputs.end_date }}
-      providers: ${{ inputs.providers || 'akshare,yfinance' }}
+      providers: ${{ inputs.providers || 'akshare,baostock,yfinance' }}
       adjust: ${{ inputs.adjust || 'none' }}
-
