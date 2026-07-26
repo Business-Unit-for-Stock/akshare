@@ -1,33 +1,37 @@
-name: Akshare Daily Data Fetch
+name: Free market data snapshot
 
 on:
-  schedule:
-    # 示例：北京时间每天下午 18:00 运行 (UTC时间 10:00)
-    - cron: '0 10 * * *'
-  workflow_dispatch: # 允许手动点击按钮触发
+  workflow_dispatch:
+    inputs:
+      start_date:
+        description: "开始日期，格式 YYYYMMDD；留空默认最近 30 天"
+        required: false
+        type: string
+      end_date:
+        description: "结束日期，格式 YYYYMMDD；留空默认今天"
+        required: false
+        type: string
+      providers:
+        description: "数据源，逗号分隔：akshare,yfinance"
+        required: false
+        default: "akshare,yfinance"
+        type: string
+      adjust:
+        description: "复权方式：none、qfq 或 hfq"
+        required: false
+        default: none
+        type: choice
+        options:
+          - none
+          - qfq
+          - hfq
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  fetch:
+    uses: Business-Unit-for-Stock/stock-research/.github/workflows/free-data.yml@main
+    with:
+      start_date: ${{ inputs.start_date }}
+      end_date: ${{ inputs.end_date }}
+      providers: ${{ inputs.providers || 'akshare,yfinance' }}
+      adjust: ${{ inputs.adjust || 'none' }}
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.10'
-
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install akshare pandas requests
-        # 如果有其他依赖，建议使用 pip install -r requirements.txt
-
-    - name: Run Akshare Script
-      env:
-        # 如果需要推送消息到微信/钉钉，可以在仓库 Settings -> Secrets 中配置
-        PUSH_KEY: ${{ secrets.PUSH_KEY }}
-      run: |
-        python scripts/my_data_fetcher.py
